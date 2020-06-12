@@ -5,7 +5,5 @@
     input by the user.
 
 ### Build and Run:
-    ```sh
     make
     java SudokuSolver
-    ```
