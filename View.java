@@ -1,47 +1,67 @@
-
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 
 public class View {
 
-    private static JTextField[][] text;
-    private static JButton button;
+    private static final int BOARD_SIZE = 9;
+    private static JTextField[][] textBoard;
+    private static JButton solve;
+    private static JButton reset;
+    private static JFrame frame;
+    private static JPanel mainPanel;
+    private static JPanel subPanel1;
+    private static JPanel subPanel2;
+    private static Controller controller;
 
-    public static void drawBoard() {
-        JFrame frame = new JFrame();
+
+    View() {
+        controller = new Controller();
+        textBoard = controller.getTextBoard();
+        solve = controller.getSolveButton();
+        reset = controller.getResetButton();
+
+        frame = new JFrame();
         frame.setSize(800, 700);
-        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        JPanel panel = new JPanel(new BorderLayout());
-        JPanel subpanel1 = new JPanel(new GridLayout(9, 9));
-        subpanel1.setPreferredSize(new Dimension(500,500));
+        mainPanel = new JPanel(new BorderLayout());
 
-        text = new JTextField[9][9];
-        Font font = new Font("Verdana", Font.BOLD, 40);
+        subPanel1 = new JPanel(new GridLayout(BOARD_SIZE, BOARD_SIZE));
+        subPanel1.setPreferredSize(new Dimension(500, 500));
 
-        for(int i = 0; i < 9; i++) {
-            for(int j = 0; j < 9; j++) {
-                text[i][j] = new JTextField();
-                text[i][j].setText("0");
-                text[i][j].setEditable(true);
-                text[i][j].setFont(font);
-                text[i][j].setHorizontalAlignment(JTextField.CENTER);
+        subPanel2 = new JPanel();
 
-                subpanel1.add(text[i][j]);
+
+        for(int row = 0; row < BOARD_SIZE; ++row) {
+            for(int column = 0; column < BOARD_SIZE; ++column) {
+                subPanel1.add(textBoard[row][column]);
             }
         }
 
-        JPanel subpanel2 = new JPanel();
+        subPanel2.add(solve);
+        subPanel2.add(reset);
+        mainPanel.add(subPanel1, BorderLayout.CENTER);
+        mainPanel.add(subPanel2, BorderLayout.PAGE_END);
 
-        // Create listener on button press call solver
-        button = new JButton("OK");
-        button.addActionListener(Controller::solveBoard);
-
-        subpanel2.add(button);
-        panel.add(subpanel1, BorderLayout.CENTER);
-        panel.add(subpanel2, BorderLayout.PAGE_END);
-
-        frame.add(panel);
+        frame.add(mainPanel);
         frame.setVisible(true);
+    }
+
+
+    public static void run() {
+
+        // Listen for solve button press
+        solve.addActionListener(controller.solveBoard);
+
+        // Listen for reset button press
+        reset.addActionListener(controller.resetBoard);
+    }
+
+    public static void updateBoard() {
+
     }
 }
