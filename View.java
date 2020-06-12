@@ -55,13 +55,29 @@ public class View {
     public static void run() {
 
         // Listen for solve button press
-        solve.addActionListener(controller.solveBoard);
+        solve.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    controller.solveBoard();
+                    solve.setEnabled(false);
+                }
+            });
 
         // Listen for reset button press
-        reset.addActionListener(controller.resetBoard);
+        reset.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    controller.resetBoard();
+                    reset.setEnabled(false);
+                }
+            });
     }
 
     public static void updateBoard() {
-
+        for(int row = 0; row < BOARD_SIZE; ++row) {
+            for(int column = 0; column < BOARD_SIZE; ++column) {
+                subPanel1.add(textBoard[row][column]);
+            }
+        }
     }
 }
