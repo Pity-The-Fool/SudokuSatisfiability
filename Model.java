@@ -2,7 +2,7 @@
 public class Model {
 
     private static final int BOARD_SIZE = 9;
-    private static int[][] board = {
+    private int[][] board = {
         { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -14,7 +14,7 @@ public class Model {
         { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
     };
 
-    public static int[][] getBoard() {
+    public int[][] getBoard() {
         return board;
     }
 
@@ -22,12 +22,12 @@ public class Model {
         this.board = board;
     }
 
-    public static void solveBoard() {
+    public void solveBoard() {
         // write board to sbsat file
         // envoke sbsat solver on board
     }
 
-    public static void resetBoard() {
+    public void resetBoard() {
         for (int row = 0; row < BOARD_SIZE; ++row) {
             for (int column = 0; column < BOARD_SIZE; ++column) {
                 board[row][column] = 0;

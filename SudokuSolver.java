@@ -1,5 +1,3 @@
-import javax.swing.*;
-import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class SudokuSolver {
 

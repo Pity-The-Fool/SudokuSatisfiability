@@ -1,18 +1,22 @@
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JTextField;
+
+// Debug
 import java.util.Arrays;
-import java.lang.System;
 
 
-public class Controller {
-    private static View view;
-    private static Model model;
+
+public class Controller
+{
     private static final int BOARD_SIZE = 9;
-    private static int[][] board;
-    private static JButton solveButton;
-    private static JButton resetButton;
+    private View view;
+    private Model model;
+    private JButton solveButton;
+    private JButton resetButton;
+
+    private int[][] board;
 
 
     /* --- Constructor --- */
@@ -38,7 +42,7 @@ public class Controller {
     Description: Set listeners to solve the board and/or reset the
                  board and synchronize with the view
     ****************************************************************/
-    private static void setListeners()
+    private void setListeners()
     {
         // Listen for solve button press
         solveButton.addActionListener(new ActionListener()
@@ -47,8 +51,11 @@ public class Controller {
                 public void actionPerformed(ActionEvent actionEvent)
                 {
                     view.getSolveButton().setEnabled(false);     // disable solveButton
+                    convertTextToBoard(view.getTextBoard());     // get updated board
                     model.solveBoard();                          // solve the board
-                    view.populateBoard(model.getBoard(), false); // sync board with view
+                    board = model.getBoard();
+                    printBoard();
+                    view.populateBoard(board, false); // sync board with view
                 }
             });
 
@@ -58,10 +65,28 @@ public class Controller {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent)
                 {
-                    view.getSolveButton().setEnabled(true);    // enable resetButton
+                    view.getSolveButton().setEnabled(true);     // enable resetButton
+                    //convertTextToBoard(view.getTextBoard());     // get updated board
                     model.resetBoard();                         // reset the board
-                    view.populateBoard(model.getBoard(), true); // sync board with view
+                    board = model.getBoard();
+                    printBoard();
+                    view.populateBoard(board, true); // sync board with view
                 }
             });
+    }
+
+    private void convertTextToBoard(JTextField[][] textBoard)
+    {
+        for (int row = 0; row < BOARD_SIZE; ++row)
+            {
+                for (int column = 0; column < BOARD_SIZE; ++column)
+                    {
+                        board[row][column] = Integer.parseInt(textBoard[row][column].getText());
+                    }
+            }
+    }
+
+    private void printBoard() {
+        System.out.println(Arrays.deepToString(board));
     }
 }

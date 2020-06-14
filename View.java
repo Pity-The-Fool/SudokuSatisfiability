@@ -1,21 +1,28 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JFrame;
+import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 
-
+import java.awt.Font;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.Dimension;
 
 public class View {
 
     private static final int BOARD_SIZE = 9;
-    private static JTextField[][] textBoard;
     private static final JButton solveButton = new JButton("Solve");
     private static final JButton resetButton = new JButton("Reset");
+    private static final Font font = new Font("Verdana", Font.BOLD, 40);
+
     private static JFrame frame = new JFrame();;
     private static JPanel mainPanel = new JPanel(new BorderLayout());
     private static JPanel subPanel1 = new JPanel(new GridLayout(BOARD_SIZE, BOARD_SIZE));
     private static JPanel subPanel2 = new JPanel();
-    private static final Font font = new Font("Verdana", Font.BOLD, 40);
+
+    private static JTextField[][] textBoard = new JTextField[BOARD_SIZE][BOARD_SIZE];
+
 
 
     /* --- Constructor --- */
@@ -57,6 +64,9 @@ public class View {
         return resetButton;
     }
 
+    public JTextField[][] getTextBoard() {
+        return textBoard;
+    }
 
     /****************************************************************
     Function: populateBoard
@@ -69,20 +79,20 @@ public class View {
     {
         for (int row = 0; row < BOARD_SIZE; ++row)
             {
-            for (int column = 0; column < BOARD_SIZE; ++column)
-                {
-                textBoard[row][column] = new JTextField();
+                for (int column = 0; column < BOARD_SIZE; ++column)
+                    {
+                        textBoard[row][column] = new JTextField();
 
-                // sync text with the board
-                textBoard[row][column].setText(Integer.toString(board[row][column]));
+                        // sync text with the board
+                        textBoard[row][column].setText("" + board[row][column]);
 
-                textBoard[row][column].setEditable(edit);
-                textBoard[row][column].setFont(font);
-                textBoard[row][column].setHorizontalAlignment(JTextField.CENTER);
+                        textBoard[row][column].setEditable(edit);
+                        textBoard[row][column].setFont(font);
+                        textBoard[row][column].setHorizontalAlignment(JTextField.CENTER);
 
-                // update board
-                subPanel1.add(textBoard[row][column]);
+                        // update board
+                        subPanel1.add(textBoard[row][column]);
+                    }
             }
-        }
     }
 }
