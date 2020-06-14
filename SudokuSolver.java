@@ -3,11 +3,10 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class SudokuSolver {
 
-    private static View view;
+    private static Controller controller;
 
     public static void main(String[] args) {
-        view = new View();
-        view.run();
-        //        SwingUtilities.invokeLater(new View());
+        controller = new Controller();
+        controller.run();
     }
 }
