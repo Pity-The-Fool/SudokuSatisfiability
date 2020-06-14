@@ -38,7 +38,7 @@ public class Controller {
     Description: Set listeners to solve the board and/or reset the
                  board and synchronize with the view
     ****************************************************************/
-    public static void setListeners()
+    private static void setListeners()
     {
         // Listen for solve button press
         solveButton.addActionListener(new ActionListener()

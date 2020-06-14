@@ -15,4 +15,4 @@ default: classes
 classes: $(CLASSES:.java=.class)
 
 clean:
-	$(RM) $(DIR)/*.class
+	$(RM) *.class
